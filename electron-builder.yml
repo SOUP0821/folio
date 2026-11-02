@@ -1,0 +1,41 @@
+appId: app.folio.desktop
+productName: Folio
+executableName: Folio
+copyright: Copyright © 2026
+
+directories:
+  output: release
+  buildResources: resources
+
+extraResources:
+  - from: resources/icon.png
+    to: icon.png
+  - from: resources/icon-dark.png
+    to: icon-dark.png
+
+files:
+  - out/**/*
+  - package.json
+  - node_modules/libheif-js/**/*
+
+asar: true
+
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+    - target: portable
+      arch: [x64]
+  icon: resources/icon-dark.png
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Folio
+  artifactName: Folio-Setup-${version}.${ext}
+
+portable:
+  artifactName: Folio-Portable-${version}.${ext}
