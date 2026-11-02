@@ -99,8 +99,8 @@ button { cursor: pointer; }
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  height: 36px;
-  padding: 0 0 0 12px;
+  height: 40px;
+  padding: 0;
   border-bottom: 1px solid var(--line);
   -webkit-app-region: drag;
   user-select: none;
@@ -112,6 +112,7 @@ button { cursor: pointer; }
 .menu-trigger:disabled { opacity: 0.4; cursor: default; }
 
 .topbar-start, .topbar-end { display: flex; align-items: center; min-width: 0; height: 100%; }
+.topbar-start { padding-left: 10px; gap: 6px; }
 .topbar-end { justify-content: flex-end; }
 
 .brand {
@@ -123,13 +124,16 @@ button { cursor: pointer; }
   letter-spacing: -0.03em;
 }
 .brand-home {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  height: 22px;
-  padding: 0 4px;
+  justify-content: center;
+  height: 28px;
+  margin: 0;
+  padding: 0 6px;
   border: 0;
   background: transparent;
-  border-radius: 5px;
+  border-radius: 6px;
+  line-height: 1;
   transition: background 140ms var(--ease-out);
 }
 .brand-home:hover { background: var(--hover); }
@@ -143,16 +147,21 @@ button { cursor: pointer; }
 .mark-ink { fill: var(--ink); }
 .mark-accent { fill: var(--accent); }
 
-.menus { display: flex; align-items: center; margin-left: 2px; gap: 0; }
-.menu-anchor { position: relative; display: flex; align-items: center; }
+.menus { display: flex; align-items: center; gap: 4px; height: 100%; }
+.menu-anchor { position: relative; display: flex; align-items: center; height: 28px; }
 .menu-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
   border: 0;
   background: transparent;
   color: var(--muted);
-  border-radius: 5px;
-  height: 22px;
-  padding: 0 8px;
+  border-radius: 6px;
+  height: 28px;
+  padding: 0 10px;
   font-size: 12px;
+  line-height: 1;
   transition: background 180ms var(--ease-out), color 180ms var(--ease-out);
 }
 .menu-trigger:hover, .menu-trigger[aria-expanded="true"] { background: var(--bar-hover); color: var(--ink); }
@@ -179,14 +188,18 @@ button { cursor: pointer; }
 }
 .menu button {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
   width: 100%;
+  min-height: 32px;
+  margin: 0;
   border: 0;
   background: transparent;
   color: var(--ink);
   border-radius: 6px;
-  padding: 7px 8px;
+  padding: 0 8px;
+  line-height: 1.2;
   text-align: left;
   transition: background 120ms var(--ease-out), box-shadow 120ms var(--ease-out);
 }
@@ -205,12 +218,15 @@ button { cursor: pointer; }
 
 .doc-name {
   justify-self: center;
-  max-width: min(520px, 46vw);
+  align-self: center;
+  max-width: min(420px, 34vw);
+  height: 28px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   color: var(--muted);
   font-size: 12px;
+  line-height: 28px;
   -webkit-app-region: drag;
 }
 .doc-name.is-home {
@@ -225,19 +241,28 @@ button { cursor: pointer; }
   font-size: 12px;
 }
 
-.chrome-tools { display: flex; align-items: center; gap: 2px; height: 100%; }
-.chrome-tools button {
-  height: 22px;
+.chrome-tools { display: flex; align-items: center; gap: 4px; height: 100%; padding-right: 4px; }
+.chrome-tools > button,
+.chrome-tools > .menu-anchor > .menu-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  margin: 0;
   padding: 0 8px;
   border: 0;
   background: transparent;
   color: var(--muted);
-  border-radius: 5px;
+  border-radius: 6px;
   font-size: 12px;
+  line-height: 1;
   transition: background 140ms var(--ease-out), color 140ms var(--ease-out);
 }
-.chrome-tools button:hover { background: var(--bar-hover); color: var(--ink); }
-.chrome-tools .icon-button, .menu-trigger.icon-button {
+.chrome-tools > button:hover,
+.chrome-tools > .menu-anchor > .menu-trigger:hover,
+.chrome-tools > .menu-anchor > .menu-trigger[aria-expanded="true"] { background: var(--bar-hover); color: var(--ink); }
+.chrome-tools > button.icon-button,
+.chrome-tools > .menu-anchor > .menu-trigger.icon-button {
   width: 28px;
   padding: 0;
 }
@@ -258,7 +283,7 @@ button { cursor: pointer; }
 }
 .icon-button circle { fill: var(--chrome); }
 
-.win-controls { display: flex; height: 100%; margin-left: 6px; }
+.win-controls { display: flex; align-items: stretch; height: 100%; margin-left: 2px; }
 .win-controls button {
   width: 42px;
   border: 0;
@@ -320,7 +345,7 @@ button { cursor: pointer; }
   border-right: 0;
   border-left: 1px solid var(--line);
 }
-.rail .segment button, .rail .choice-row > button { font-size: 12px; padding: 6px 4px; }
+.rail .segment button, .rail .choice-row > button { font-size: 12px; padding: 0 8px; }
 .rail-exports { display: flex; flex-direction: column; gap: 6px; }
 .rail-exports .btn { width: 100%; text-align: left; }
 .inspector { border-left: 1px solid var(--line); }
@@ -550,20 +575,27 @@ button { cursor: pointer; }
 
 .segment, .choice-row {
   display: flex;
-  gap: 2px;
-  padding: 2px;
+  align-items: stretch;
+  gap: 4px;
+  padding: 3px;
   border-radius: 8px;
   background: var(--chip);
 }
 .segment button, .choice-row > button {
   position: relative;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex: 1;
+  min-height: 28px;
+  margin: 0;
   border: 0;
   background: transparent;
   color: var(--muted);
   border-radius: 6px;
-  padding: 6px 8px;
+  padding: 0 10px;
+  line-height: 1;
   transition: color 180ms var(--ease-out);
 }
 .segment button:hover, .choice-row > button:hover { color: var(--ink); }
@@ -577,7 +609,7 @@ button { cursor: pointer; }
 .choice-col {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
 }
 .choice-col > button {
   position: relative;
@@ -594,6 +626,7 @@ button { cursor: pointer; }
   transition: transform 280ms var(--ease-out), width 280ms var(--ease-out), height 280ms var(--ease-out), opacity 180ms var(--ease-out);
 }
 .choice-pill.is-instant { transition: none; }
+.choice button:hover:not(:disabled) { background: transparent; color: var(--ink); }
 .choice button[aria-pressed="true"],
 .choice button[aria-checked="true"] {
   background: transparent;

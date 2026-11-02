@@ -22,13 +22,19 @@ export function Choice({
         setBox(null)
         return
       }
-      const base = host.getBoundingClientRect()
-      const rects = picked.map((item) => item.getBoundingClientRect())
-      const left = Math.min(...rects.map((rect) => rect.left))
-      const top = Math.min(...rects.map((rect) => rect.top))
-      const right = Math.max(...rects.map((rect) => rect.right))
-      const bottom = Math.max(...rects.map((rect) => rect.bottom))
-      setBox({ x: left - base.left, y: top - base.top, w: right - left, h: bottom - top })
+      let left = Infinity
+      let top = Infinity
+      let right = -Infinity
+      let bottom = -Infinity
+      for (const item of picked) {
+        const x = item.offsetLeft
+        const y = item.offsetTop
+        left = Math.min(left, x)
+        top = Math.min(top, y)
+        right = Math.max(right, x + item.offsetWidth)
+        bottom = Math.max(bottom, y + item.offsetHeight)
+      }
+      setBox({ x: left, y: top, w: right - left, h: bottom - top })
     }
     measure()
     const frame = requestAnimationFrame(() => setMotion(true))
