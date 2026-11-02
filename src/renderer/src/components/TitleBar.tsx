@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import type { ViewMode } from '@shared/formats'
 import type { RecentItem } from '../types'
+import { Choice } from './Choice'
 import { Mark } from './Mark'
 
 interface Item {
@@ -121,16 +122,16 @@ export function TitleBar({
           <Mark />
         </button>
       </div>
-      <button
-        type="button"
-        className="menu-trigger"
-        disabled={!canBack}
-        onClick={(event) => { event.stopPropagation(); onBack() }}
-        onDoubleClick={(event) => event.stopPropagation()}
-      >
-        Back
-      </button>
       <nav className="menus" aria-label="Menu" onDoubleClick={(event) => event.stopPropagation()}>
+        <button
+          type="button"
+          className="menu-trigger"
+          disabled={!canBack}
+          onClick={(event) => { event.stopPropagation(); onBack() }}
+          onDoubleClick={(event) => event.stopPropagation()}
+        >
+          Back
+        </button>
         <MenuButton label="File" expanded={open === 'file'} onToggle={() => setOpen(open === 'file' ? null : 'file')}>
           <button type="button" role="menuitem" onClick={() => pick(onOpen)}>Open<span>Ctrl+O</span></button>
           <button type="button" role="menuitem" onClick={() => pick(onSave)}>Save<span>Ctrl+S</span></button>
@@ -189,12 +190,14 @@ export function TitleBar({
       <div className="chrome-tools">
         <MenuButton label="Settings" icon={<GearIcon />} expanded={open === 'settings'} onToggle={() => setOpen(open === 'settings' ? null : 'settings')}>
           <p className="menu-label">Sides</p>
-          <button type="button" role="menuitemcheckbox" aria-checked={sides.history} onClick={() => onHistory(!sides.history)}>
-            History
-          </button>
-          <button type="button" role="menuitemcheckbox" aria-checked={sides.convert} onClick={() => onConvert(!sides.convert)}>
-            Convert
-          </button>
+          <Choice axis="column" label="Sides">
+            <button type="button" role="menuitemcheckbox" aria-checked={sides.history} onClick={() => onHistory(!sides.history)}>
+              History
+            </button>
+            <button type="button" role="menuitemcheckbox" aria-checked={sides.convert} onClick={() => onConvert(!sides.convert)}>
+              Convert
+            </button>
+          </Choice>
         </MenuButton>
         <button
           type="button"

@@ -3,6 +3,7 @@ import type { ViewMode } from '@shared/formats'
 import type { OutlineItem } from '../lib/outline'
 import type { PictureOp } from '../lib/picture'
 import type { PageLook, RecentItem } from '../types'
+import { Choice } from './Choice'
 import { PictureTools } from './PictureTools'
 
 interface ExportItem {
@@ -116,13 +117,13 @@ export function SidePanel({
     <aside className="rail" aria-label="Convert">
       {grip('Convert', 'Hide convert')}
       <h2>Page</h2>
-      <div className="segment" role="group" aria-label="Page">
+      <Choice axis="row" label="Page">
         {(['match', 'paper', 'night'] as const).map((look) => (
           <button key={look} type="button" aria-pressed={pageLook === look} onClick={() => onPage(look)}>
             {look === 'match' ? 'Match' : look === 'paper' ? 'Paper' : 'Night'}
           </button>
         ))}
-      </div>
+      </Choice>
       {showPicture ? (
         <>
           <h2>Picture</h2>
@@ -151,13 +152,13 @@ export function SidePanel({
       ) : null}
       <h2>View</h2>
       {modes.length === 0 ? <p className="rail-note">Open a file to change the view.</p> : (
-        <div className="segment" role="group" aria-label="View">
+        <Choice axis="row" label="View">
           {modes.map((item) => (
             <button key={item.id} type="button" aria-pressed={mode === item.id} onClick={() => onMode(item.id)}>
               {item.label}
             </button>
           ))}
-        </div>
+        </Choice>
       )}
       {showZoom ? (
         <>
